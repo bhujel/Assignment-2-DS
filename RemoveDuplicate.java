@@ -16,6 +16,9 @@ class rmDup{
 	
 	nNode head;
 	
+	int frq[] = new int[1000];
+
+	
 	public void insertEnd(int x ) {
 		
 		nNode node = new nNode(x);
@@ -45,27 +48,53 @@ class rmDup{
 			System.out.print(curr.data+" ");
 			
 			curr = curr.next;
+			
 		}
+		
 		System.out.println();
+		
 	}
 	public void removeDup() {
 		
-		if ( head == null )
+		if ( head == null && head.next == null )
 			return ;
 		
-		nNode curr = head;
+		nNode curr = head , ptr = null ;
 		
-		while( curr.next != null ) {
+//		while( curr.next != null ) {
+//			
+//			if( curr.data == curr.next.data ) {
+//				
+//				nNode ptr = curr.next;
+//				curr.next = curr.next.next ;
+//				
+//				ptr = null ;
+//			}
+//			else 
+//			{
+//				
+//				curr = curr.next;
+//				
+//			}
+//		}
+		while( curr != null ) {
 			
-			if( curr.data == curr.next.data ) {
+			if( frq[curr.data] == 0 ) {
 				
-				nNode ptr = curr.next;
-				curr.next = curr.next.next ;
-				
-				ptr = null ;
-			}
-			else
+				ptr = curr ;
+				frq[curr.data] = 1 ;
 				curr = curr.next;
+				
+			}
+			else {
+				
+				nNode del = curr ;
+				curr = curr.next;
+				ptr.next = del.next ;
+				del.next = null ;
+				
+			}
+			
 		}
 	}
 }
@@ -86,7 +115,7 @@ public class RemoveDuplicate {
 			
 			int x = sc.nextInt();
 			
-		r.insertEnd(x);
+			r.insertEnd(x);
 		
 		}
 		
